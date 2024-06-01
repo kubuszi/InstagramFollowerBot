@@ -45,7 +45,16 @@ class InstaFollower:
             notifications_prompt.click()
 
     def find_followers(self):
-        pass
+        time.sleep(5)
+        self.driver.get(f"https://www.instagram.com/{SIMILAR_ACCOUNT}/followers")
+
+        time.sleep(5.2)
+
+        modal_xpath = "/html/body/div[6]/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[2]"
+        modal = self.driver.find_element(by=By.XPATH, value=modal_xpath)
+        for i in range(10):
+            self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", modal)
+            time.sleep(2)
 
     def follow(self):
         pass
