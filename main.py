@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import ElementClickInterceptedException
 import time
 
 SIMILAR_ACCOUNT = ""
@@ -57,7 +58,15 @@ class InstaFollower:
             time.sleep(2)
 
     def follow(self):
-        pass
+        all_buttons = self.driver.find_elements(By.CSS_SELECTOR, value='._aano button')
+
+        for button in all_buttons:
+            try:
+                button.click()
+                time.sleep(1.1)
+            except ElementClickInterceptedException:
+                cancel_button = self.driver.find_element(by=By.XPATH, value="//button[contains(text(), 'Anuluj')]")
+                cancel_button.click()
 
 
 bot = InstaFollower()
